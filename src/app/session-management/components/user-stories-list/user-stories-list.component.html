@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <nav aria-label="breadcrumb" class="breadCumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" [routerLink]="['/sesionManagement/sessions']">Sessions</li>
+            <li class="breadcrumb-item active" aria-current="page">UserStories</li>
+            <li class="breadcrumb-item text-primary" (click)="gotoCreateUserStory()">Create Story</li>
+
+        </ol>
+    </nav>
+    <div class="row" *ngIf="userStoreis.length>0">
+        <div class="col-md- 12 card" [ngClass]="{'col-md-8': isViewVotes ,'card': isViewVotes}" style="border-right:2px solid   red;">
+            <div class="row " [ngClass]="{'card-body': isViewVotes}">
+                <div class="col-md-4" *ngFor="let item of userStoreis; let i= index">
+                    <div class="card">
+                        <div class="card-header">
+                            {{item.id}}
+                            <button class="btn btn-primary btn-sm item-float-rigth" (click)="start(i)"
+                                *ngIf="!item.isApproveVote && !item.isstarted">Start</button>
+                            <!-- <button class="btn btn-primary btn-sm item-float-rigth" (click)="start(i)" *ngIf="item.isstarted">Stared</button> -->
+                           
+                            <button class="btn btn-light btn-sm item-float-rigth" 
+                                *ngIf="item.isApproveVote">Voted</button>
+                                <button class="btn btn-light btn-sm item-float-rigth" 
+                                *ngIf="!item.isApproveVote && item.isstarted">Voting</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                Description : {{item.description}}
+                                <div class="row" *ngIf="item.isApproveVote">
+                                    <div class="col-md-12">
+                                       <b>Status </b> <i>Approved</i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <b>Name </b> <i>{{item.approvedPerson}}</i>
+                                     </div>
+                                     <div class="col-md-12">
+                                        <b>Hours </b> <i>{{item.approvedHours}}</i>
+                                     </div>
+                                </div>
+
+                            </div>
+
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example"
+                                style="float: right;">
+
+                                <button *ngIf="item.isstarted" type="button" class="btn btn-secondary" (click)="viewBVotes(item.storyPoints, i)"> <i
+                                        class="fa fa-thumbs-up" aria-hidden="true" ></i>
+                                    View Votes </button>
+                                <button type="button" class="btn btn-danger" (click)="destroy(i,item)"> <i
+                                        class="fa fa-trash-o" aria-hidden="true"></i>
+                                    Destroy</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isViewVotes" class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" *ngFor="let vote of viewVotesList | keyvalue">
+                        <div class="card-body">
+                            USername :<b>{{vote?.key}}</b>
+                            <br>
+                            Voted hours :<i>{{vote?.value}}</i>
+                            <div >
+                                <button (click)="approveHours(vote)" class="btn btn-danger">Approve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="userStoreis.length===0">
+        No data found
+    </div>
+    <!-- <div class="row" *ngIf="sessions.length===0">
+        <div class="col-md-6 offset-col-3">
+            No data found
+            <img [src]="notFoundImg"/>
+        
+        </div>
+    </div> -->
+</div>

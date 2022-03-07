@@ -1,0 +1,26 @@
+<div class="container">
+    <form  class="session-form" (ngSubmit)="submitSession()" [formGroup]="sessionForm">
+        <div class="form-group">
+            <label for="text">Title:</label>
+            <input type="email" class="form-control" id="email"  formControlName="title">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Dec Type:</label>
+            <select class="form-select" aria-label="Default select example"  formControlName="decType">
+                <option selected>Select</option>
+                <option value="1">Type1</option>
+                <option value="2">Type2</option>
+                <option value="3">Type3</option>
+                <option value="4">Type4</option>
+                <option value="5">Type5</option>
+
+
+            </select>
+        </div>
+        <div class="session-submit-button">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+
+        </div>
+
+    </form>
+</div>

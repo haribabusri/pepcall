@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row" *ngIf="!isJoined">
+        <div class="col-md-6 offset-md-3">
+            <form class="session-form nick-form-top" (ngSubmit)="joinSession()" [formGroup]="sessionForm">
+                <div class="form-group" style="width: 200px; display: inline;">
+                    <label for="text">Nick Name:</label>
+                    <input type="text" class="form-control" id="email" formControlName="name">
+                </div>
+
+                <div class="session-submit-button">
+
+                    <button type="submit" class="btn btn-primary btn-block join-button">Join</button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isJoined">
+        Welcome <span class="user-name">{{user.name}}</span>
+        <h3>Session details</h3>
+        <p>Title: {{sessionInfo.title}}</p>
+        <p>Deck Type: {{sessionInfo.decType}}</p>
+
+
+        <div class="row">
+            <div class="col-md-8 card">
+                <div class="card-header bg-primary text-white main-head">
+                    User stories List
+                </div>
+                <div class="card-body">
+                    <div class="card" *ngFor="let item of sessionInfo.userStories; let i= index">
+                        <div class="card-header">
+                            {{item.id}}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                Description : {{item.description}}
+                                <form *ngIf="item.isstarted && !item.isApproveVote">
+                                    <label>
+                                        Vote:
+                                    </label>
+                                     <select class="form-select" (change)="onChange(i)" [(ngModel)]="storyPoints" name="storyPoints">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                      </select>
+    
+                                </form>
+                                <br>
+                                <span class="text-danger" *ngIf="!item.isstarted && !item.isApproveVote">Not Started</span>
+                                <span class="text-danger" *ngIf="item.isstarted && item.isApproveVote">Voting Done</span>
+                                
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 card offset-md-1">
+                <div class="card-header bg-danger text-white main-head">
+                    Users List
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of sessionInfo.users; let i= index">{{item.name}}</li>
+    
+                    </ul>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+
+</div>

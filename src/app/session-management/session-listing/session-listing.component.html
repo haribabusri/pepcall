@@ -1,0 +1,41 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let item of sessions; let i= index">
+            <div class="card" >
+                <div class="card-header">
+                  {{item.title}}
+                  <button class="btn item-float-rigth" (click)="getLink(i,item)" *ngIf="!item.isLinkActivated"><i class="fa fa-link" aria-hidden="true"></i>
+                  </button>
+                  <button class="btn item-float-rigth" (click)="goToSession(i)" *ngIf="item.isLinkActivated">Open Session <i class="fa fa-arrows" aria-hidden="true"></i>
+                  </button>
+
+                </div>
+                <div class="card-body">
+                  <div class="card-text">
+                    DeckType : {{item.decType}}
+                  </div>
+                  <div class="btn-group" role="group" aria-label="Basic mixed styles example" style="float: right;">
+                    <button type="button" class="btn btn-danger" (click)="destroy(i)"> <i class="fa fa-trash-o" aria-hidden="true" ></i>
+
+                        Destroy</button>
+                    <button type="button" class="btn btn-warning" (click)="goToUserStories(i)"> <i class="fa fa-tasks" aria-hidden="true"></i>
+                        Userstories</button>
+                  </div>
+
+                </div>
+              </div>
+        </div>
+        
+    </div>
+    <div *ngIf="sessions.length===0">
+        No data found
+    </div>
+    <!-- <div class="row" *ngIf="sessions.length===0">
+        <div class="col-md-6 offset-col-3">
+            No data found
+            <img [src]="notFoundImg"/>
+        
+        </div>
+    </div> -->
+</div>
